@@ -3,11 +3,16 @@ use std::{io::stdin, process::Command};
 use chrono::{DateTime, Local};
 use tokio::{fs::File, io::AsyncWriteExt};
 
+fn create_date() {
+    let now: DateTime<Local> = Local::now();
+    println!("{}", now.format("%Y-%m-%d %H:%M:%S"));
+}
+
 #[tokio::main]
 async fn main() {
     let mut site = String::new();
 
-    println!("{}", create_date());
+    create_date();
 
     loop {
         let mut browser = String::new();
@@ -48,10 +53,6 @@ async fn main() {
         break;
     }
     ()
-}
-
-fn create_date() -> DateTime<Local> {
-    return Local::now();
 }
 
 async fn write_to_file(mut file: File, str: String) {
