@@ -1,5 +1,7 @@
 use std::{io::stdin, process::Command};
 
+use tokio::{fs::File, io::AsyncWriteExt};
+
 #[tokio::main]
 async fn main() {
     let mut site = String::new();
@@ -18,6 +20,9 @@ async fn main() {
                 .arg(site.to_string())
                 .spawn()
                 .expect("No Site");
+
+            let file: File = File::create("commands.txt").await.expect("NO File Created");
+            write_to_file(file, String::from(site.as_str())).await;
         } else {
             println!("{}", "Enter Site Name: ".to_uppercase());
 
@@ -30,12 +35,22 @@ async fn main() {
                 .expect("No Site");
         }
 
+        let file: File = File::create("commands.txt").await.expect("NO File Created");
+        write_to_file(file, String::from(site.as_str())).await;
+
         if empty(String::from(site.as_str())) {
             break;
         }
 
         break;
     }
+    ()
+}
+
+async fn write_to_file(mut file: File, str: String) {
+    file.write_all(str.as_bytes())
+        .await
+        .expect("No File Created");
     ()
 }
 
