@@ -48,15 +48,15 @@ async fn main() {
             stdin().read_line(&mut site).unwrap();
 
             let website: WebRoute = WebRoute {
-                gmail: String::from(format!("{}", "http://www.google.com/gmail")),
-                google: String::from(format!("{}", "")),
+                gmail: String::from(format!("{}", "")),
+                google: String::from(format!("{}", "http://www.google.com")),
                 yt: String::from(format!("{}", "")),
             };
 
             let website_yt: WebRoute = WebRoute {
-                gmail: String::from(format!("{}", "http://www.google.com/youtube")),
+                gmail: String::from(format!("{}", "")),
                 google: String::from(format!("{}", "")),
-                yt: String::from(format!("{}", "")),
+                yt: String::from(format!("{}", "http://www.google.com/youtube")),
             };
 
             let website_gmail: WebRoute = WebRoute {
