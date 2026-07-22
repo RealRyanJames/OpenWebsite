@@ -1,10 +1,17 @@
 use std::{io::stdin, process::Command};
 
+use chrono::{DateTime, Local};
 use tokio::{fs::File, io::AsyncWriteExt};
+
+fn create_date() -> DateTime<Local> {
+    return Local::now();
+}
 
 #[tokio::main]
 async fn main() {
     let mut site = String::new();
+
+    println!("{}", create_date());
 
     loop {
         let mut browser = String::new();
