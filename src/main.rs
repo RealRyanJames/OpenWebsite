@@ -68,10 +68,19 @@ async fn main() {
         let mut browser = String::new();
         stdin().read_line(&mut browser).unwrap();
 
+        if browser == "Break" {
+            break;
+        }
+
         if browser.to_owned().starts_with("Firefox") {
             println!("{}", "Enter Site Name: ".to_uppercase());
 
             stdin().read_line(&mut site).unwrap();
+
+            if empty(String::from(&site)) {
+                println!("{}", "Empty".to_uppercase());
+                break;
+            }
 
             let website: WebRoute = WebRoute {
                 gmail: String::from(format!("{}", "")),
