@@ -140,6 +140,65 @@ async fn main() {
             break;
         }
 
+        let website: WebRoute = WebRoute {
+            gmail: String::from(format!("{}", "")),
+            google: String::from(format!("{}", "http://www.google.com")),
+            yt: String::from(format!("{}", "")),
+        };
+
+        let website_yt: WebRoute = WebRoute {
+            gmail: String::from(format!("{}", "")),
+            google: String::from(format!("{}", "")),
+            yt: String::from(format!("{}", "http://www.google.com/youtube")),
+        };
+
+        let website_gmail: WebRoute = WebRoute {
+            gmail: String::from(format!("{}", "http://www.google.com/gmail")),
+            google: String::from(format!("{}", "")),
+            yt: String::from(format!("{}", "")),
+        };
+
+        if site.contains("Google") {
+            Command::new("cmd")
+                .arg("/C")
+                .arg("C:\\Program Files\\Mozilla Firefox\\Firefox.exe")
+                .arg(String::from(get_web_route(
+                    website,
+                    String::from(site.as_str()),
+                )))
+                .spawn()
+                .expect("No Site");
+
+            let file: File = File::create("commands.txt").await.expect("NO File Created");
+            write_to_file(file, String::from(site.as_str())).await;
+        } else if site.contains("YouTube") {
+            Command::new("cmd")
+                .arg("/C")
+                .arg("C:\\Program Files\\Mozilla Firefox\\Firefox.exe")
+                .arg(String::from(get_yt(
+                    website_yt,
+                    String::from(site.as_str()),
+                )))
+                .spawn()
+                .expect("No Site");
+
+            let file: File = File::create("commands.txt").await.expect("NO File Created");
+            write_to_file(file, String::from(site.as_str())).await;
+        } else if site.contains("Gmail") {
+            Command::new("cmd")
+                .arg("/C")
+                .arg("C:\\Program Files\\Mozilla Firefox\\Firefox.exe")
+                .arg(String::from(get_gmail(
+                    website_gmail,
+                    String::from(site.as_str()),
+                )))
+                .spawn()
+                .expect("No Site");
+
+            let file: File = File::create("commands.txt").await.expect("NO File Created");
+            write_to_file(file, String::from(site.as_str())).await;
+        }
+
         break;
     }
     ()
