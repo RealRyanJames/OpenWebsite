@@ -16,11 +16,21 @@ pub struct WebRoute {
 
 pub trait Routes {
     fn get_web_site(&self) -> String;
+    fn get_gmail(&self) -> String;
+    fn get_youtube(&self) -> String;
 }
 
 impl Routes for WebRoute {
     fn get_web_site(&self) -> String {
         format!("{}", self.google)
+    }
+
+    fn get_gmail(&self) -> String {
+        format!("{}", self.gmail)
+    }
+
+    fn get_youtube(&self) -> String {
+        format!("{}", self.yt)
     }
 }
 
@@ -30,6 +40,22 @@ pub fn get_web_route(web_route: WebRoute, str: String) -> String {
     }
 
     return format!("{}", web_route.google);
+}
+
+pub fn get_gmail(web_route: WebRoute, str: String) -> String {
+    if str.contains(&web_route.gmail) {
+        return format!("{}", "http://www.google.com/gmail");
+    }
+
+    return format!("{}", web_route.gmail);
+}
+
+pub fn get_yt(web_route: WebRoute, str: String) -> String {
+    if str.contains(&web_route.yt) {
+        return format!("{}", "http://www.google.com/youtube");
+    }
+
+    return format!("{}", web_route.yt);
 }
 
 #[tokio::main]
@@ -82,7 +108,7 @@ async fn main() {
                 Command::new("cmd")
                     .arg("/C")
                     .arg("C:\\Program Files\\Mozilla Firefox\\Firefox.exe")
-                    .arg(String::from(get_web_route(
+                    .arg(String::from(get_yt(
                         website_yt,
                         String::from(site.as_str()),
                     )))
@@ -95,7 +121,7 @@ async fn main() {
                 Command::new("cmd")
                     .arg("/C")
                     .arg("C:\\Program Files\\Mozilla Firefox\\Firefox.exe")
-                    .arg(String::from(get_web_route(
+                    .arg(String::from(get_gmail(
                         website_gmail,
                         String::from(site.as_str()),
                     )))
